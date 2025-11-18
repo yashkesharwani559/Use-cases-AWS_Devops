@@ -1,0 +1,20 @@
+---
+- name: Configure Apache Web Server
+  hosts: webserver
+  become: yes
+  tasks:
+    - name: Install Apache
+      yum:
+        name: httpd
+        state: present
+
+    - name: Start Apache
+      service:
+        name: httpd
+        state: started
+        enabled: yes
+
+    - name: Create index.html
+      copy:
+        dest: /var/www/html/index.html
+        content: "<h1>Hello from Ansible!</h1>"
